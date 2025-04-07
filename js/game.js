@@ -1188,22 +1188,22 @@ class Game {
         
         // Check for losing conditions
         if (people <= 0) {
-            gameOverReason = "Halkınız sizi terk etti! Kimsenin yaşamadığı bir krallığa hükmetmenin bir anlamı yok.";
+            gameOverReason = "👥 Halkınız sizi terk etti! Kimsenin yaşamadığı bir krallığa hükmetmenin bir anlamı yok.";
             endingType = "people_revolt";
         } else if (army <= 0) {
-            gameOverReason = "Ordunuz dağıldı ve ülkeniz savunmasız kaldı. Komşu krallıklar topraklarınızı işgal etti.";
+            gameOverReason = "⚔️ Ordunuz dağıldı ve ülkeniz savunmasız kaldı. Komşu krallıklar topraklarınızı işgal etti.";
             endingType = "army_defeat";
         } else if (treasury <= 0) {
-            gameOverReason = "Hazine boşaldı ve borçlarınızı ödeyemez hale geldiniz. Soylular sizi devirerek yeni bir kral seçti.";
+            gameOverReason = "💰 Hazine boşaldı ve borçlarınızı ödeyemez hale geldiniz. Soylular sizi devirerek yeni bir kral seçti.";
             endingType = "treasury_bankruptcy";
         } else if (religion <= 0) {
-            gameOverReason = "Dinî kurumların desteğini tamamen kaybettiniz. Halk arasında dinsiz bir hükümdar olarak anıldınız ve tahtınızı kaybettiniz.";
+            gameOverReason = "⛪ Dinî kurumların desteğini tamamen kaybettiniz. Halk arasında dinsiz bir hükümdar olarak anıldınız ve tahtınızı kaybettiniz.";
             endingType = "religion_loss";
         }
         
         // Check for winning condition (all stats above 90)
         if (people >= 90 && army >= 90 && treasury >= 90 && religion >= 90) {
-            gameOverReason = "Muhteşem yönetiminiz sayesinde krallığınız altın çağını yaşıyor! Adınız tarihe en büyük hükümdarlardan biri olarak geçecek.";
+            gameOverReason = "👑 Muhteşem yönetiminiz sayesinde krallığınız altın çağını yaşıyor! Adınız tarihe en büyük hükümdarlardan biri olarak geçecek.";
             endingType = "golden_age";
         }
         
@@ -1247,7 +1247,23 @@ class Game {
             // Update the game over message
             const messageElement = this.elements.cardText || document.getElementById('game-over-message');
             if (messageElement) {
-                messageElement.textContent = reason;
+                // Türkçe mesajları ve emojileri ekle
+                let turkishReason = reason;
+                
+                // İngilizce mesajları Türkçeye çevir
+                if (reason.includes("Your people have revolted")) {
+                    turkishReason = "Halkınız isyan etti! 👥 Halkınızın güvenini kaybettiniz.";
+                } else if (reason.includes("Your army has been defeated")) {
+                    turkishReason = "Ordunuz yenildi! ⚔️ Krallığınızı koruyamadınız.";
+                } else if (reason.includes("Your treasury is empty")) {
+                    turkishReason = "Hazineniz boşaldı! 💰 Krallığınız iflas etti.";
+                } else if (reason.includes("Your religious influence has waned")) {
+                    turkishReason = "Dini etkiniz azaldı! ⛪ Halkınızın inancını kaybettiniz.";
+                } else if (reason.includes("Congratulations")) {
+                    turkishReason = "Tebrikler! 👑 Krallığınız altın çağını yaşıyor!";
+                }
+                
+                messageElement.textContent = turkishReason;
             }
             
             // Update final stats
@@ -1264,22 +1280,22 @@ class Game {
             if (titleElement) {
                 switch (this.state.endingType) {
                     case 'people_revolt':
-                        titleElement.textContent = 'Halk İsyanı!';
+                        titleElement.textContent = 'Halk İsyanı! 👥';
                         break;
                     case 'army_defeat':
-                        titleElement.textContent = 'Askeri Çöküş!';
+                        titleElement.textContent = 'Askeri Çöküş! ⚔️';
                         break;
                     case 'treasury_bankruptcy':
-                        titleElement.textContent = 'İflas!';
+                        titleElement.textContent = 'İflas! 💰';
                         break;
                     case 'religion_loss':
-                        titleElement.textContent = 'Dini Çöküş!';
+                        titleElement.textContent = 'Dini Çöküş! ⛪';
                         break;
                     case 'golden_age':
-                        titleElement.textContent = 'Altın Çağ!';
+                        titleElement.textContent = 'Altın Çağ! 👑';
                         break;
                     default:
-                        titleElement.textContent = 'Oyun Bitti!';
+                        titleElement.textContent = 'Oyun Bitti! 👑';
                 }
             }
             
@@ -2148,3 +2164,63 @@ window.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('visualEffectsReady', initGame, { once: true });
     }
 });
+
+// Music Control
+const backgroundMusic = document.getElementById('background-music');
+const musicToggle = document.getElementById('music-toggle');
+let isMusicPlaying = false;
+
+function toggleMusic() {
+    if (isMusicPlaying) {
+        backgroundMusic.pause();
+        musicToggle.classList.remove('playing');
+    } else {
+        backgroundMusic.play().catch(error => {
+            console.log('Audio playback failed:', error);
+        });
+        musicToggle.classList.add('playing');
+    }
+    isMusicPlaying = !isMusicPlaying;
+}
+
+musicToggle.addEventListener('click', toggleMusic);
+musicToggle.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    toggleMusic();
+});
+
+// Progress Bar Updates
+function updateProgressBars() {
+    const stats = {
+        people: document.getElementById('people-stat').textContent,
+        army: document.getElementById('army-stat').textContent,
+        treasury: document.getElementById('treasury-stat').textContent,
+        religion: document.getElementById('religion-stat').textContent
+    };
+
+    Object.entries(stats).forEach(([stat, value]) => {
+        const progressBar = document.getElementById(`${stat}-progress`);
+        if (progressBar) {
+            const percentage = (parseInt(value) / 100) * 100;
+            progressBar.style.width = `${percentage}%`;
+            
+            // Update progress bar color based on value
+            if (percentage < 30) {
+                progressBar.style.backgroundColor = '#e74c3c';
+            } else if (percentage < 70) {
+                progressBar.style.backgroundColor = '#f1c40f';
+            } else {
+                progressBar.style.backgroundColor = '#2ecc71';
+            }
+        }
+    });
+}
+
+// Update the existing updateStats function
+function updateStats(stat, value) {
+    const statElement = document.getElementById(`${stat}-stat`);
+    if (statElement) {
+        statElement.textContent = value;
+        updateProgressBars();
+    }
+}
