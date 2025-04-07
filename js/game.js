@@ -2169,58 +2169,106 @@ window.addEventListener('DOMContentLoaded', () => {
 const backgroundMusic = document.getElementById('background-music');
 const musicToggle = document.getElementById('music-toggle');
 let isMusicPlaying = false;
+let isAudioLoaded = false;
+
+// Ses yükleme işleyicisi
+backgroundMusic.addEventListener('loadeddata', () => {
+    isAudioLoaded = true;
+    console.log('Audio loaded successfully');
+});
+
+// Ses hata işleyicisi
+backgroundMusic.addEventListener('error', (e) => {
+    console.error('Audio loading error:', e);
+    musicToggle.style.display = 'none'; // Ses yüklenemezse butonu gizle
+});
+
+// Mobil cihazlar için ses kontrolü
+function initAudio() {
+    // Mobil cihazlarda otomatik oynatmayı engelle
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        backgroundMusic.preload = 'none';
+    }
+}
 
 function toggleMusic() {
+    if (!isAudioLoaded && !isMusicPlaying) {
+        backgroundMusic.load(); // İlk tıklamada sesi yükle
+    }
+
     if (isMusicPlaying) {
         backgroundMusic.pause();
         musicToggle.classList.remove('playing');
     } else {
-        backgroundMusic.play().catch(error => {
-            console.log('Audio playback failed:', error);
-        });
-        musicToggle.classList.add('playing');
+        const playPromise = backgroundMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                musicToggle.classList.add('playing');
+            }).catch(error => {
+                console.log('Playback failed:', error);
+                // Kullanıcı etkileşimi gerektiğinde tekrar dene
+                if (error.name === 'NotAllowedError') {
+                    console.log('User interaction required for playback');
+                }
+            });
+        }
     }
     isMusicPlaying = !isMusicPlaying;
 }
 
-musicToggle.addEventListener('click', toggleMusic);
+// Mobil dokunma olayları
 musicToggle.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Varsayılan dokunma davranışını engelle
+    toggleMusic();
+}, { passive: false });
+
+musicToggle.addEventListener('click', (e) => {
     e.preventDefault();
     toggleMusic();
 });
 
-// Progress Bar Updates
-function updateProgressBars() {
-    const stats = {
-        people: document.getElementById('people-stat').textContent,
-        army: document.getElementById('army-stat').textContent,
-        treasury: document.getElementById('treasury-stat').textContent,
-        religion: document.getElementById('religion-stat').textContent
-    };
+// Sayfa yüklendiğinde ses sistemini başlat
+document.addEventListener('DOMContentLoaded', initAudio);
 
-    Object.entries(stats).forEach(([stat, value]) => {
-        const progressBar = document.getElementById(`${stat}-progress`);
-        if (progressBar) {
-            const percentage = (parseInt(value) / 100) * 100;
-            progressBar.style.width = `${percentage}%`;
-            
-            // Update progress bar color based on value
-            if (percentage < 30) {
-                progressBar.style.backgroundColor = '#e74c3c';
-            } else if (percentage < 70) {
-                progressBar.style.backgroundColor = '#f1c40f';
-            } else {
-                progressBar.style.backgroundColor = '#2ecc71';
+// İstatistik çubuklarını güncelleme
+function updateProgressBars() {
+    // Sadece mobil cihazlarda çalış
+    if (window.innerWidth <= 768) {
+        const stats = {
+            people: document.getElementById('people-stat').textContent,
+            army: document.getElementById('army-stat').textContent,
+            treasury: document.getElementById('treasury-stat').textContent,
+            religion: document.getElementById('religion-stat').textContent
+        };
+
+        Object.entries(stats).forEach(([stat, value]) => {
+            const progressBar = document.getElementById(`${stat}-progress`);
+            if (progressBar) {
+                const percentage = Math.min(Math.max(parseInt(value), 0), 100);
+                progressBar.style.width = `${percentage}%`;
+                
+                // Değere göre renk belirleme
+                if (percentage < 30) {
+                    progressBar.style.backgroundColor = '#e74c3c'; // Kırmızı
+                } else if (percentage < 70) {
+                    progressBar.style.backgroundColor = '#f1c40f'; // Sarı
+                } else {
+                    progressBar.style.backgroundColor = '#2ecc71'; // Yeşil
+                }
             }
-        }
-    });
+        });
+    }
 }
 
-// Update the existing updateStats function
+// Mevcut updateStats fonksiyonunu güncelle
 function updateStats(stat, value) {
     const statElement = document.getElementById(`${stat}-stat`);
     if (statElement) {
         statElement.textContent = value;
-        updateProgressBars();
+        updateProgressBars(); // İstatistik güncellendiğinde çubukları da güncelle
     }
 }
+
+// Pencere boyutu değiştiğinde çubukları güncelle
+window.addEventListener('resize', updateProgressBars);
