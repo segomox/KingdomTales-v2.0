@@ -71,10 +71,11 @@ body {
   font-size: 1.5em;
 }
 
-/* Card */
 .card {
   width: 90%;
   max-width: 1000px;
+  min-height: 500px;
+  height: 70vh;
   padding: 35px;
   background: rgba(0, 0, 0, 0.85);
   border-radius: 15px;
@@ -85,6 +86,7 @@ body {
   box-shadow: 0 0 30px rgba(244, 208, 63, 0.1);
   transition: opacity 1s ease-in-out;
 }
+
 
 .character-image {
   width: 300px;
