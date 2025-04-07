@@ -15,12 +15,14 @@
         <div id="loading-text" class="loading-text">Yükleniyor...</div>
     </div>
 
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+        Tarayıcınız ses dosyasını desteklemiyor.
+    </audio>
+
     <!-- Music Toggle -->
-    <button id="music-toggle" class="music-toggle" aria-label="Toggle Music">
-        <svg viewBox="0 0 24 24">
-            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-        </svg>
-    </button>
+    <button id="music-toggle" class="music-toggle" aria-label="Müzik Aç/Kapat"></button>
 
     <!-- Game Container -->
     <div id="game-container" class="game-container">
@@ -29,18 +31,30 @@
             <div class="stat">
                 <span class="stat-emoji">👥</span>
                 <span id="people-stat">50</span>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" id="people-progress" style="width: 50%"></div>
+                </div>
             </div>
             <div class="stat">
                 <span class="stat-emoji">⚔️</span>
                 <span id="army-stat">50</span>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" id="army-progress" style="width: 50%"></div>
+                </div>
             </div>
             <div class="stat">
                 <span class="stat-emoji">💰</span>
                 <span id="treasury-stat">50</span>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" id="treasury-progress" style="width: 50%"></div>
+                </div>
             </div>
             <div class="stat">
                 <span class="stat-emoji">⛪</span>
                 <span id="religion-stat">50</span>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" id="religion-progress" style="width: 50%"></div>
+                </div>
             </div>
         </div>
 
