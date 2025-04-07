@@ -75,7 +75,7 @@ body {
   width: 90%;
   max-width: 1000px;
   min-height: 500px;
-  height: 70vh;
+  height: 80vh;
   padding: 35px;
   background: rgba(0, 0, 0, 0.85);
   border-radius: 15px;
@@ -89,8 +89,8 @@ body {
 
 
 .character-image {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
@@ -98,13 +98,13 @@ body {
 
 .card-text {
   font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   line-height: 1.6;
   color: #cec7c7;
   text-align: center;
   margin: 1rem;
   padding: 1rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.02em;
 }
 
@@ -114,12 +114,12 @@ body {
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .choice-button {
   font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
   padding: 1rem 2rem;
   margin: 0.5rem;
