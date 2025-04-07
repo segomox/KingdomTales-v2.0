@@ -11,39 +11,23 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  height: 100vh;
   background: url('assets/images/backgrounds/castle-bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
+  position: relative;
+  overflow-x: hidden;
   color: #f4d03f;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 
 .game-container {
-  position: relative;
-  width: 90%;
-  max-width: 700px;
-  height: 95vh;
-  max-height: 800px;
-  margin: 0 auto;
-  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 15px;
-  box-shadow: 0 0 30px rgba(244, 208, 63, 0.1);
-  transition: opacity 1s ease-in-out;
-  overflow: hidden;
+  min-height: 100vh;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Stats Bar */
@@ -71,11 +55,10 @@ body {
   font-size: 1.5em;
 }
 
+/* Card */
 .card {
   width: 90%;
   max-width: 1000px;
-  min-height: 500px;
-  height: 80vh;
   padding: 35px;
   background: rgba(0, 0, 0, 0.85);
   border-radius: 15px;
@@ -84,13 +67,12 @@ body {
   align-items: center;
   gap: 20px;
   box-shadow: 0 0 30px rgba(244, 208, 63, 0.1);
-  transition: opacity 1s ease-in-out;
+  
 }
 
-
 .character-image {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
@@ -98,13 +80,13 @@ body {
 
 .card-text {
   font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   line-height: 1.6;
   color: #cec7c7;
   text-align: center;
   margin: 1rem;
   padding: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.02em;
 }
 
@@ -114,12 +96,12 @@ body {
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .choice-button {
   font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 600;
   padding: 1rem 2rem;
   margin: 0.5rem;
@@ -167,7 +149,7 @@ body {
 }
 
 .game-over-content {
-  background: rgb(135, 107, 92);
+  background: rgb(98, 91, 91);
   padding: 30px;
   border-radius: 15px;
   text-align: center;
@@ -606,12 +588,11 @@ body {
   line-height: 1.4;
 }
 
-#game-over-title {
-  color: #000000;
-  font-size: 2em;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-weight: bold;
+.game-over-title {
+  font-size: 2.5em;
+  color: #f4d03f;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .game-over-message {
@@ -619,95 +600,59 @@ body {
   color: #fff;
   margin-bottom: 30px;
   line-height: 1.5;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(139, 69, 19, 0.3);
-  max-width: 800px;
-  margin: 20px auto;
-  text-align: center;
 }
 
 .stats-summary {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 25px;
-  border-radius: 15px;
-  margin: 25px 0;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
   border: 2px solid #8b4513;
-  box-shadow: 0 0 20px rgba(139, 69, 19, 0.3);
-  transition: all 0.3s ease;
 }
 
 .stats-summary h3 {
-  color: #8b4513;
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  text-shadow: 0 0 5px rgba(139, 69, 19, 0.5);
-  text-align: center;
-  font-weight: bold;
-  letter-spacing: 1px;
+  color: #f4d03f;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  text-shadow: 0 0 5px rgba(244, 208, 63, 0.5);
 }
 
 .stat-summary {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 15px;
 }
 
 .stat-summary span {
-  color: #333;
-  font-size: 1.2em;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
+  color: #fff;
+  font-size: 1.1em;
+  padding: 10px;
+  background: rgba(139, 69, 19, 0.3);
+  border-radius: 5px;
   text-align: center;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease;
-}
-
-.stat-summary span:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .character-name {
-  color: #8B4513;  /* Saddle Brown - warm, royal color */
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-  margin: 0.5rem 0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  letter-spacing: 1px;
+    font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f4d03f;
+    text-align: center;
+    margin: 0.5rem 0 1rem 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.05em;
 }
 
 @media (max-width: 768px) {
-  .character-name {
-    font-size: 1.2em;
-    margin: 0.3rem 0;
-  }
+    .character-name {
+        font-size: 1.5rem;
+        margin: 0.4rem 0 0.8rem 0;
+    }
 }
 
 @media (max-width: 480px) {
-  .character-name {
-    font-size: 1em;
-    margin: 0.2rem 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .game-over-message {
-    font-size: 1.1em;
-    padding: 15px;
-    margin: 15px auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .game-over-message {
-    font-size: 1em;
-    padding: 12px;
-    margin: 12px auto;
-  }
+    .character-name {
+        font-size: 1.3rem;
+        margin: 0.3rem 0 0.6rem 0;
+    }
 }
