@@ -2,28 +2,28 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Kingdom Tales 2</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Merriweather:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="progress-bar"></div>
-        <div class="loading-text">Yükleniyor...</div>
+    <div id="loading-screen" class="loading-screen">
+        <div id="progress-bar" class="progress-bar"></div>
+        <div id="loading-text" class="loading-text">Yükleniyor...</div>
     </div>
 
     <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle">
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle Music">
         <svg viewBox="0 0 24 24">
             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
         </svg>
     </button>
 
     <!-- Game Container -->
-    <div class="game-container">
+    <div id="game-container" class="game-container">
         <!-- Stats Bar -->
         <div class="stats-bar">
             <div class="stat">
@@ -48,39 +48,29 @@
         <div id="card" class="card">
             <img id="character-image" class="character-image" src="assets/images/characters/default.png" alt="Character">
             <h2 id="character-name" class="character-name">Character Name</h2>
-            <p id="card-text" class="card-text">Card text will appear here...</p>
-            <!-- Choice Buttons -->
+            <p id="card-text" class="card-text">Loading story...</p>
             <div class="choices-container">
-                <button id="left-choice" class="choice-button"></button>
-                <button id="right-choice" class="choice-button"></button>
+                <button id="left-choice" class="choice-button">Choice 1</button>
+                <button id="right-choice" class="choice-button">Choice 2</button>
             </div>
         </div>
+    </div>
 
-        <!-- Game Over Screen -->
-        <div id="game-over" class="game-over">
-            <div class="game-over-content">
-                <h2 id="game-over-title">Oyun Bitti!</h2>
-                <p id="game-over-message"></p>
-                <div class="final-stats">
-                    <div class="stat">
-                        <span class="stat-emoji">👥</span>
-                        <span>Halk: <span id="final-people-stat">0</span></span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-emoji">⚔️</span>
-                        <span>Ordu: <span id="final-army-stat">0</span></span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-emoji">💰</span>
-                        <span>Hazine: <span id="final-treasury-stat">0</span></span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-emoji">⛪</span>
-                        <span>Din: <span id="final-religion-stat">0</span></span>
-                    </div>
+    <!-- Game Over Screen -->
+    <div id="game-over" class="game-over">
+        <div class="game-over-content">
+            <h2 id="game-over-title">Oyun Bitti 👑</h2>
+            <div id="game-over-message" class="game-over-message"></div>
+            <div class="stats-summary">
+                <h3>Son İstatistikler 📊</h3>
+                <div class="stat-summary">
+                    <span>👥 Halk: <span id="final-people-stat">0</span></span>
+                    <span>⚔️ Ordu: <span id="final-army-stat">0</span></span>
+                    <span>💰 Hazine: <span id="final-treasury-stat">0</span></span>
+                    <span>⛪ Din: <span id="final-religion-stat">0</span></span>
                 </div>
-                <button id="reset-button" class="reset-button">Yeniden Başla</button>
             </div>
+            <button id="reset-button" class="reset-button">Tekrar Oyna 🔄</button>
         </div>
     </div>
 
